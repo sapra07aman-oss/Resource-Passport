@@ -1,0 +1,2253 @@
+# MASTER PROJECT PROMPT: RESOURCE PASSPORT
+
+## Digital Identity, Safety Compliance, and Lifecycle Management for Every Institutional Asset
+
+---
+
+# 1. YOUR ROLE
+
+Act as a principal software architect, senior full-stack engineer, PostgreSQL database architect, application security engineer, UI/UX designer, and QA engineer.
+
+Your task is to design, implement, test, and document a complete, functional, full-stack web application named **Resource Passport**.
+
+Do not produce merely a prototype, static dashboard, design mockup, landing page, or collection of disconnected frontend screens.
+
+Build a real software application with:
+
+* Real authentication.
+* A persistent PostgreSQL database.
+* Functional create, read, update, and delete operations where appropriate.
+* Server-enforced authorization.
+* A centralized safety eligibility engine.
+* A working resource booking system.
+* Maintenance and inspection workflows.
+* Training and certification management.
+* Approval workflows.
+* Digital handover records.
+* Audit history.
+* Useful analytics.
+* Realistic loading, empty, success, and error states.
+* Automated tests for critical workflows.
+
+Every major feature must be connected to its actual data source and business logic.
+
+If a feature cannot be completed because external credentials, infrastructure, or integrations are unavailable, implement the appropriate configuration interface and a clearly documented setup requirement. Never simulate a successful real operation.
+
+# 2. PROJECT IDENTITY
+
+Application name: Resource Passport
+
+Tagline: Digital Identity for Every Asset.
+
+Product category: Institutional Asset Lifecycle and Safety Compliance Management Platform.
+
+Deployment scope: One college or university.
+
+Primary users:
+
+1. Students.
+2. Researchers.
+3. Laboratory managers.
+4. Resource owners.
+5. Safety officers.
+6. Maintenance technicians.
+7. Institution administrators.
+8. Auditors.
+
+Primary objective:
+
+Give every machine, laboratory, room, instrument, and shared facility a persistent digital identity that connects ownership, location, condition, usage rules, training prerequisites, authorizations, bookings, maintenance, handovers, and historical events.
+
+The application must determine whether a user is permitted to perform a particular activity using a particular resource under the applicable conditions before allowing the requested booking to be confirmed.
+
+Example:
+
+A student requests a 45-minute booking for a laser cutter to cut acrylic.
+
+The application checks:
+
+* Whether the user is authenticated and active.
+* Whether the student has completed mandatory training.
+* Whether training and certification remain valid.
+* Whether the student has authorization for that specific equipment.
+* Whether supervision is required.
+* Whether the proposed activity and material are permitted.
+* Whether the machine is operational.
+* Whether mandatory inspections are current.
+* Whether a safety hold exists.
+* Whether the requested time is available.
+* Whether human approval is required.
+
+If any mandatory requirement fails, the system must block the booking or route it for the explicitly permitted review process.
+
+The system must never automatically treat missing evidence as proof of compliance.
+
+# 3. MANDATORY TECHNOLOGY STACK
+
+Use the following stack without substituting a different framework.
+
+## Frontend
+
+* Vite.
+* React.
+* TypeScript.
+* Tailwind CSS.
+* React Router.
+* TanStack Query.
+* React Hook Form.
+* Zod.
+* Lucide React icons.
+* A reusable, accessible component system.
+
+## Backend
+
+* Supabase.
+* Supabase Auth.
+* PostgreSQL.
+* PostgreSQL Row-Level Security.
+* PostgreSQL functions for transactional business operations.
+* Supabase Storage for private documents.
+* Supabase Edge Functions where trusted server-side orchestration or external integrations are required.
+
+## Testing
+
+* Vitest.
+* React Testing Library.
+* Playwright.
+* Database-level tests for constraints, authorization, and business rules.
+
+## Development tools
+
+* ESLint.
+* Prettier.
+* TypeScript strict mode.
+* Git-compatible project structure.
+* Supabase CLI and versioned database migrations.
+
+Use current, compatible, stable package versions. Pin dependencies through the package manager lockfile.
+
+### STRICT TECHNOLOGY RESTRICTIONS
+
+DO NOT USE:
+
+* Next.js.
+* Next.js App Router.
+* Next.js Pages Router.
+* Server Actions.
+* Next.js API routes.
+* Firebase as a replacement for Supabase.
+* MongoDB as a replacement for PostgreSQL.
+* Local storage as the primary database.
+* Hardcoded users as the authentication system.
+* Mock arrays as the permanent source of application data.
+* Client-side-only authorization.
+* A fake login system.
+* A frontend-only safety engine.
+
+The application must run as a Vite React application.
+
+The application must use Supabase as its actual authentication and persistence backend.
+
+Use React Router for navigation and protected route handling.
+
+Use PostgreSQL as the authoritative store for application records.
+
+# 4. CORE PRODUCT PRINCIPLES
+
+The application must follow these principles.
+
+## 4.1 Digital identity
+
+Every resource has a unique, permanent identifier.
+
+Changing the resource name, owner, custodian, or location must not change its identity.
+
+## 4.2 Safety before convenience
+
+Booking eligibility must be checked by trusted backend logic.
+
+The frontend may display the result but must not be able to override it.
+
+## 4.3 Explainable decisions
+
+Every failed eligibility check must have:
+
+* A stable reason code.
+* A readable explanation.
+* The affected requirement.
+* A corrective action where appropriate.
+* The applicable policy version.
+* An evaluation timestamp.
+
+## 4.4 Complete lifecycle
+
+A resource passport must retain relevant history from registration through operational use, maintenance, custody changes, restrictions, and retirement.
+
+## 4.5 Least privilege
+
+Users must only access the data and operations required for their assigned responsibilities.
+
+## 4.6 Auditability
+
+Important changes must be attributable to an authenticated user or identified system process.
+
+## 4.7 No silent failure
+
+Errors must be visible and actionable.
+
+Never show a success message when the database operation failed.
+
+## 4.8 Progressive implementation
+
+Build the application in working stages.
+
+Do not create every page first and postpone the real backend until the end.
+
+# 5. VISUAL DESIGN SYSTEM
+
+Create a professional institutional software product suitable for university laboratories, research centers, engineering workshops, and shared facilities.
+
+The visual identity should communicate:
+
+* Precision.
+* Safety.
+* Accountability.
+* Technical competence.
+* Operational clarity.
+* Institutional trust.
+
+Avoid generic AI-generated landing page aesthetics, excessive gradients, oversized marketing typography, decorative animations, and unnecessary glassmorphism.
+
+## 5.1 Design direction
+
+Use a modern enterprise dashboard with:
+
+* A persistent left sidebar.
+* A compact top navigation bar.
+* A consistent content grid.
+* Clear typography.
+* Restrained use of color.
+* Strong visual hierarchy.
+* Compact but readable data tables.
+* Consistent status badges.
+* Clear form labels.
+* Useful empty states.
+* Accessible contrast.
+* Responsive layouts.
+
+Suggested design tokens:
+
+Primary: deep navy or dark blue.
+
+Secondary: slate.
+
+Background: light neutral gray.
+
+Surface: white.
+
+Success: green.
+
+Warning: amber.
+
+Danger: red.
+
+Information: blue.
+
+Define these as reusable Tailwind theme tokens rather than scattering arbitrary colors throughout the application.
+
+Use a consistent spacing scale, typography scale, border-radius system, and elevation system.
+
+## 5.2 Application layout
+
+Desktop:
+
+* Fixed or collapsible sidebar.
+* Top bar containing page title, breadcrumbs, notifications, and profile menu.
+* Main content area.
+* Optional right-side detail panel for contextual information.
+
+Tablet:
+
+* Collapsible navigation.
+* Responsive tables.
+* Adapted form layouts.
+
+Mobile:
+
+* Compact navigation.
+* Touch-friendly controls.
+* Responsive resource cards.
+* Scrollable or stacked booking information.
+* Mobile-friendly QR scanning and upload controls.
+
+## 5.3 Component requirements
+
+Build reusable components for:
+
+* Buttons.
+* Inputs.
+* Select fields.
+* Search boxes.
+* Date and time pickers.
+* Dialogs.
+* Drawers.
+* Dropdowns.
+* Tabs.
+* Tooltips.
+* Toast notifications.
+* Status badges.
+* Data tables.
+* Pagination.
+* Filter controls.
+* Confirmation dialogs.
+* Skeleton loaders.
+* Empty states.
+* Error states.
+* Permission-denied states.
+* Eligibility check summaries.
+* Audit event timelines.
+* Resource information cards.
+
+Use Lucide React icons consistently.
+
+Do not use emojis as primary interface icons.
+
+All important interactions must work. Do not create decorative controls that have no functionality.
+
+# 6. APPLICATION NAVIGATION
+
+Implement the following navigation hierarchy.
+
+RESOURCE PASSPORT
+
+1. Overview
+2. Resource Explorer
+
+   * All Resources
+   * Resource Categories
+   * My Managed Resources
+   * Resource Passport Details
+   * QR Scanner
+3. Bookings
+
+   * My Bookings
+   * Booking Calendar
+   * New Booking
+   * Booking History
+   * Approval Queue
+4. Safety and Training
+
+   * Training Catalog
+   * My Training
+   * Training Records
+   * Certifications
+   * Resource Authorizations
+5. Maintenance
+
+   * Maintenance Overview
+   * Inspection Schedule
+   * Work Orders
+   * Fault Reports
+   * Maintenance History
+6. Handover and Incidents
+
+   * Check-in / Check-out
+   * Condition Reports
+   * Incident Register
+7. Analytics and Reports
+
+   * Resource Utilization
+   * Safety Compliance
+   * Maintenance Performance
+   * Booking Analytics
+8. Audit History
+9. Administration
+
+   * Users and Roles
+   * Departments
+   * Resource Management
+   * Safety Policies
+   * Activities
+   * Notifications
+   * System Settings
+
+Navigation items must be filtered according to the current user's permissions.
+
+Hiding a navigation item is not an authorization mechanism. Every protected operation must also be enforced by the backend.
+
+# 7. AUTHENTICATION AND USER MANAGEMENT
+
+Implement real Supabase Auth.
+
+## Required authentication functionality
+
+* Login with email and password.
+* Logout.
+* Session restoration after refresh.
+* Password recovery.
+* Password reset.
+* Authentication error handling.
+* Session-expiration handling.
+* Protected routes.
+* Profile display.
+* Account status handling.
+
+Configure institutional registration according to the selected college's policy.
+
+Support either administrator-managed invitations or approved institutional email registration.
+
+Do not allow arbitrary public users to create privileged accounts.
+
+Do not expose service-role or secret keys to the browser.
+
+Use the appropriate current Supabase publishable key for the frontend.
+
+## User profile
+
+Store application profile information in a `profiles` table linked to `auth.users`.
+
+Fields:
+
+* id.
+* full_name.
+* email, where needed for application display.
+* department_id.
+* profile_image_path, optional.
+* account_status.
+* created_at.
+* updated_at.
+
+Use the authenticated user's immutable Supabase identity as the source of identity.
+
+Do not authorize users based on user-editable profile metadata.
+
+## Role model
+
+Implement these roles:
+
+### Student / Researcher
+
+Can:
+
+* Browse accessible resources.
+* View permitted resource passports.
+* View their own training records.
+* Request bookings.
+* View their own bookings.
+* Cancel eligible bookings according to policy.
+* Complete permitted check-in/check-out actions.
+* Report equipment faults.
+* Submit handover condition reports.
+
+Cannot:
+
+* Approve their own booking when approval is required.
+* Grant themselves training.
+* Authorize themselves to use restricted equipment.
+* Modify resource safety policies.
+* Change their role.
+
+### Lab Manager
+
+Can:
+
+* Manage assigned resources.
+* View and manage bookings within their scope.
+* Process permitted booking approvals.
+* Perform or record authorized inspections.
+* Manage resource documents.
+* Apply operational restrictions within their authority.
+
+Cannot automatically override non-overridable safety requirements.
+
+### Resource Owner
+
+Can:
+
+* View resources they own.
+* Manage resource metadata within their permissions.
+* Propose or maintain usage policies where authorized.
+* Review resource utilization.
+* Assign custodians where permitted.
+
+Ownership alone must not grant unlimited system privileges.
+
+### Safety Officer
+
+Can:
+
+* Verify training evidence.
+* Manage authorized safety requirements.
+* Review safety-related exceptions.
+* Review incidents.
+* Approve explicitly permitted safety decisions.
+* Inspect compliance history.
+
+### Maintenance Technician
+
+Can:
+
+* View assigned work orders.
+* Record inspections.
+* Report faults.
+* Record repairs and service completion.
+* Attach maintenance evidence.
+* Recommend that an asset is ready for return to service.
+
+A technician's repair completion must not automatically remove a safety hold if a separate clearance is required.
+
+### Institution Administrator
+
+Can:
+
+* Manage user assignments and roles.
+* Manage departments.
+* Manage resource records within institutional policy.
+* Configure application settings.
+* Manage access assignments.
+* Review operational reports.
+* Perform authorized administrative operations.
+
+### Auditor
+
+Can:
+
+* Read permitted audit records.
+* Inspect relevant booking histories.
+* Review maintenance and compliance evidence.
+* Export authorized reports.
+
+The auditor must not be able to modify the records being audited.
+
+Implement role assignments in a controlled database table.
+
+Prevent users from changing their own privileged role assignments.
+
+# 8. RESOURCE PASSPORT MODULE
+
+Implement a complete resource registry.
+
+Every resource must have a unique `resource_code` and persistent UUID.
+
+## Resource categories
+
+Support configurable categories such as:
+
+* Machinery.
+* Laboratory equipment.
+* Scientific instruments.
+* Computers and electronics.
+* Tools.
+* Laboratories.
+* Meeting rooms.
+* Workshop spaces.
+* Research facilities.
+* Shared equipment.
+
+## Resource fields
+
+* id.
+* resource_code.
+* name.
+* description.
+* category_id.
+* serial_number, optional.
+* manufacturer, optional.
+* model, optional.
+* location.
+* department_id.
+* owner_id.
+* custodian_id.
+* risk_level.
+* operational_status.
+* acquisition_date, optional.
+* warranty_expiry, optional.
+* current_condition.
+* image_path, optional.
+* next_inspection_at, where applicable.
+* created_at.
+* updated_at.
+* created_by.
+
+Use normalized tables for categories, locations, rules, documents, and history when appropriate.
+
+## Resource operational states
+
+Define controlled states such as:
+
+* OPERATIONAL.
+* RESTRICTED.
+* UNDER_MAINTENANCE.
+* UNDER_INSPECTION.
+* OUT_OF_SERVICE.
+* RETIRED.
+
+Specify valid transitions.
+
+For example:
+
+* OUT_OF_SERVICE cannot transition directly to OPERATIONAL when mandatory repair or safety clearance remains outstanding.
+* RETIRED resources cannot receive new bookings.
+* RESTRICTED resources may be used only if their explicit restrictions permit the requested activity.
+
+## Resource passport interface
+
+Each resource must have a dedicated detail page.
+
+Display the following sections:
+
+### A. Overview
+
+* Resource name.
+* Resource code.
+* QR code.
+* Category.
+* Location.
+* Department.
+* Owner.
+* Custodian.
+* Current operational status.
+* Current condition.
+* Risk level.
+
+### B. Safety
+
+* Known hazards.
+* Required protective equipment.
+* Operating instructions.
+* Prohibited activities.
+* Permitted materials.
+* Supervision requirements.
+* Emergency procedures.
+* Applicable safety policies.
+
+### C. Eligibility requirements
+
+* Required training courses.
+* Required practical assessments.
+* Required authorization scopes.
+* Required approval roles.
+* Inspection prerequisites.
+* Other resource-specific requirements.
+
+### D. Booking
+
+* Current availability.
+* Booking calendar.
+* Duration restrictions.
+* Advance booking limits.
+* Operating hours.
+* Booking rules.
+* Reservation form.
+
+### E. Maintenance
+
+* Last inspection.
+* Next inspection.
+* Open faults.
+* Maintenance restrictions.
+* Service history.
+* Work orders.
+
+### F. Documents
+
+* Operating manuals.
+* Safety procedures.
+* Inspection certificates.
+* Supporting documents.
+
+### G. Lifecycle history
+
+* Registration.
+* Owner and custodian changes.
+* Operational status changes.
+* Bookings.
+* Handover records.
+* Maintenance events.
+* Incidents.
+* Retirement, where applicable.
+
+Every section must load persisted data.
+
+Display only information the current user is authorized to access.
+
+## QR codes
+
+Generate a QR code that identifies the resource through an application route.
+
+Example:
+`/resources/{resourceId}`
+
+The QR code must not contain authentication credentials, private information, or authorization tokens.
+
+Scanning the code identifies the asset; the backend still verifies the user's permissions.
+
+Provide:
+
+* QR display.
+* Downloadable QR image.
+* Printable asset label.
+* Authenticated QR lookup.
+* Invalid-resource handling.
+
+# 9. RESOURCE EXPLORER
+
+Implement a searchable, filterable resource catalog.
+
+Features:
+
+* Search by resource name and code.
+* Filter by category.
+* Filter by department.
+* Filter by location.
+* Filter by operational status.
+* Filter by risk level.
+* Filter by availability.
+* Filter by required qualifications.
+* Sort by name, status, category, or utilization.
+* Pagination.
+* Grid and table views.
+* Resource detail navigation.
+
+Only display availability claims based on current backend data.
+
+Do not show an asset as bookable merely because its status says OPERATIONAL.
+
+Actual eligibility depends on the requested activity, time, user qualifications, authorization, maintenance state, and applicable rules.
+
+# 10. TRAINING AND CERTIFICATION MODULE
+
+Create a real training management system.
+
+## Training course fields
+
+* id.
+* course_code.
+* name.
+* description.
+* provider.
+* training_type.
+* validity_days, where applicable.
+* practical_assessment_required.
+* active_status.
+* created_at.
+* updated_at.
+
+Training types may include:
+
+* General safety.
+* Laboratory induction.
+* Equipment operation.
+* Laser safety.
+* Electrical safety.
+* Chemical handling.
+* Emergency procedures.
+
+## User training record fields
+
+* id.
+* user_id.
+* course_id.
+* status.
+* completed_at.
+* expires_at.
+* verified_by.
+* verified_at.
+* evidence_path, optional.
+* notes.
+* created_at.
+* updated_at.
+
+Support:
+
+* NOT_STARTED.
+* IN_PROGRESS.
+* PENDING_VERIFICATION.
+* VALID.
+* EXPIRED.
+* REVOKED.
+* FAILED.
+
+Define the allowed transitions and derive eligibility from the authoritative record and policy.
+
+Do not allow a student to mark their own training as verified.
+
+## Training features
+
+* Training catalog.
+* My training.
+* Completion records.
+* Evidence uploads.
+* Verification queue.
+* Expiry reminders.
+* Expired training warnings.
+* Training history.
+* Qualification requirements by resource.
+
+Use a configurable expiry policy.
+
+If a course has no expiry, do not automatically invent one.
+
+# 11. RESOURCE AUTHORIZATION MODULE
+
+Training and authorization are separate concepts.
+
+A student may complete a course but still lack permission to operate a particular machine independently.
+
+Create a `resource_authorizations` table.
+
+Suggested fields:
+
+* id.
+* user_id.
+* resource_id, nullable only when the authorization scope supports it.
+* authorization_scope.
+* status.
+* valid_from.
+* valid_until.
+* granted_by.
+* granted_at.
+* revoked_by.
+* revoked_at.
+* justification.
+* created_at.
+* updated_at.
+
+Support authorization scopes such as:
+
+* Institution-wide.
+* Department.
+* Resource category.
+* Individual resource.
+* Specific activity.
+
+Define a documented precedence rule for overlapping scopes.
+
+An individual-resource restriction must not be silently bypassed by a broader authorization.
+
+Support:
+
+* Grant authorization.
+* Revoke authorization.
+* Suspend authorization.
+* Expiry handling.
+* Authorization history.
+* Supervisor requirements.
+* Approval evidence.
+
+All changes must be permission-checked and auditable.
+
+# 12. ACTIVITIES AND SAFETY POLICIES
+
+Create a configurable system for defining what users may do with resources.
+
+Example activities:
+
+* General laboratory work.
+* Laser cutting.
+* 3D printing.
+* Electrical testing.
+* Chemical preparation.
+* Equipment calibration.
+* Research experimentation.
+
+An activity can specify:
+
+* Name.
+* Description.
+* Risk classification.
+* Permitted resource categories.
+* Required training.
+* Required authorization.
+* Permitted materials.
+* Prohibited materials.
+* Supervision requirements.
+* Approval requirements.
+* Required protective equipment.
+* Additional operating conditions.
+
+Do not hardcode all rules directly into React components.
+
+Store authoritative rules in normalized database tables or a carefully validated policy representation.
+
+Version safety policies.
+
+Every rule must have:
+
+* Stable identifier.
+* Version.
+* Active state.
+* Effective date.
+* Responsible owner.
+* Creation timestamp.
+* Approval metadata, where required.
+
+A policy publication must be an authorized operation.
+
+A draft policy must not silently affect current eligibility.
+
+# 13. CENTRAL SAFETY ELIGIBILITY ENGINE
+
+This is the most important business component.
+
+Implement the eligibility engine as trusted backend logic backed by PostgreSQL.
+
+Suggested operations:
+
+`evaluate_booking_eligibility`
+
+`request_booking`
+
+`approve_booking`
+
+`reject_booking`
+
+`check_in_booking`
+
+`check_out_booking`
+
+`cancel_booking`
+
+Use database functions and transactions for operations that require consistent state changes.
+
+## Evaluation inputs
+
+* Authenticated user identity.
+* Resource ID.
+* Activity ID.
+* Requested start time.
+* Requested end time.
+* Relevant material or operating parameters, when applicable.
+
+Derive the user identity from the authenticated request context.
+
+Do not trust a browser-provided user ID as proof of identity.
+
+## Mandatory checks
+
+### Check 1: User identity
+
+* Account exists.
+* Account is active.
+* User is authenticated.
+* Institutional access is valid.
+
+### Check 2: Resource state
+
+* Resource exists.
+* Resource is not retired.
+* Resource is operational for the proposed activity.
+* No blocking safety hold exists.
+
+### Check 3: Training
+
+* Required courses exist and are active.
+* Required completion records are valid.
+* Required training is not expired.
+* Required practical assessments have been passed.
+* Required evidence is verified.
+
+### Check 4: Authorization
+
+* The user has the correct authorization.
+* Authorization is valid during the proposed use.
+* Authorization has not been revoked or suspended.
+* Required supervision is available or arranged.
+
+### Check 5: Activity
+
+* Activity is permitted for the resource.
+* Requested materials are allowed.
+* Activity restrictions are satisfied.
+* Additional mandatory safety requirements are met.
+
+### Check 6: Maintenance
+
+* Required inspections are current.
+* Mandatory maintenance is not overdue.
+* No blocking maintenance restriction exists.
+* Required maintenance clearance is recorded.
+
+### Check 7: Scheduling
+
+* Start time precedes end time.
+* Duration is within permitted limits.
+* Requested time falls within operating hours.
+* No conflicting booking exists.
+* No maintenance reservation overlaps the request.
+* Applicable booking limits are satisfied.
+
+### Check 8: Approval
+
+* Required human approval has been obtained before confirmation.
+* The approver is authorized for the resource and activity.
+* The requester cannot approve their own request where policy prohibits it.
+
+## Decision states
+
+Use:
+
+* ELIGIBLE.
+* BLOCKED.
+* REVIEW_REQUIRED.
+
+Each individual check should produce:
+
+* PASS.
+* FAIL.
+* REVIEW_REQUIRED.
+* NOT_APPLICABLE.
+
+Do not allow REVIEW_REQUIRED to be interpreted as PASS.
+
+## Response format
+
+Return structured data similar to:
+
+{
+"decision": "BLOCKED",
+"eligible": false,
+"policy_version": 3,
+"evaluated_at": "timestamp",
+"checks": [
+{
+"code": "TRAINING_EXPIRED",
+"status": "FAIL",
+"message": "Required laser safety training has expired.",
+"required_action": "COMPLETE_TRAINING"
+},
+{
+"code": "RESOURCE_OPERATIONAL",
+"status": "PASS",
+"message": "Resource is operational."
+}
+]
+}
+
+This is an illustrative response shape. Generate real values from persisted records.
+
+## Safety requirements
+
+* Fail closed when required evidence is missing or invalid.
+* Use consistent rules across all entry points.
+* Re-evaluate eligibility when a booking is committed.
+* Revalidate eligibility at check-in.
+* Define whether credentials must remain valid throughout the booking.
+* Apply safety holds immediately.
+* Record the applicable policy version.
+* Preserve the decision and reasons for audit.
+* Prevent unauthorized manual overrides.
+* Require explicit, authorized clearance before removing applicable holds.
+
+Never rely solely on frontend validation.
+
+# 14. BOOKING AND SCHEDULING MODULE
+
+Implement a complete resource reservation system.
+
+## Booking fields
+
+* id.
+* booking_reference.
+* resource_id.
+* requester_id.
+* activity_id.
+* start_at.
+* end_at.
+* purpose.
+* requested_materials, where applicable.
+* supervision_required.
+* supervision_arrangement.
+* status.
+* approval_required.
+* created_at.
+* updated_at.
+* cancelled_at, optional.
+
+Use normalized child tables when a booking requires multiple materials, supervisors, or approval records.
+
+## Booking workflow
+
+1. User selects a resource.
+2. User selects the activity.
+3. User selects a date and time.
+4. User enters the required purpose and relevant activity details.
+5. The frontend requests an eligibility evaluation.
+6. The application displays the results.
+7. The user submits the booking request.
+8. The backend revalidates the request.
+9. The database checks scheduling conflicts.
+10. The request is stored with the appropriate status.
+11. If approval is required, an authorized reviewer receives the request.
+12. The reviewer approves or rejects it.
+13. The user receives an in-app notification.
+14. The user checks in when permitted.
+15. The user completes the resource handover.
+16. The system records the return condition.
+17. The booking is completed.
+
+## Booking states
+
+Implement a documented state machine with states such as:
+
+* DRAFT, if drafts are supported.
+* REQUESTED.
+* PENDING_APPROVAL.
+* APPROVED.
+* REJECTED.
+* CANCELLED.
+* CHECKED_OUT.
+* RETURNED.
+* COMPLETED.
+* EXPIRED.
+
+Define allowed transitions.
+
+Do not permit arbitrary status updates from the frontend.
+
+## Booking interface
+
+Provide:
+
+* Calendar view.
+* List view.
+* Resource availability view.
+* New booking form.
+* Booking detail page.
+* Eligibility report.
+* Approval history.
+* Cancellation workflow.
+* Check-in/check-out controls.
+* Booking status badges.
+* Empty and error states.
+
+## Booking concurrency
+
+Use PostgreSQL constraints and transactions to prevent overlapping reservations.
+
+Do not rely on a frontend availability check.
+
+Use an appropriate range exclusion constraint or an equivalent transactional locking strategy.
+
+Include temporary holds only if their expiry and conflict behavior are clearly defined.
+
+# 15. APPROVAL WORKFLOW
+
+Build a dedicated approval queue.
+
+Authorized reviewers should see:
+
+* Booking reference.
+* Requester.
+* Resource.
+* Activity.
+* Requested time.
+* Eligibility result.
+* Safety check summary.
+* Required approval type.
+* Relevant resource restrictions.
+* Previous decisions.
+
+Reviewers can:
+
+* Approve.
+* Reject.
+* Request additional information, if supported.
+
+Require a reason for rejection.
+
+Record:
+
+* Reviewer identity.
+* Decision.
+* Timestamp.
+* Reason.
+* Policy version.
+* Relevant evaluation reference.
+
+Re-evaluate eligibility immediately before approval or final confirmation when required.
+
+An approval must not override a failed non-overridable requirement.
+
+Prevent self-approval when the applicable policy prohibits it.
+
+# 16. MAINTENANCE MANAGEMENT
+
+Implement a functional maintenance module.
+
+## Maintenance record fields
+
+* id.
+* resource_id.
+* maintenance_type.
+* title.
+* description.
+* performed_by.
+* scheduled_at.
+* performed_at.
+* next_due_at.
+* result.
+* evidence_path.
+* created_at.
+* updated_at.
+
+## Work order fields
+
+* id.
+* resource_id.
+* title.
+* description.
+* priority.
+* status.
+* assigned_to.
+* created_by.
+* due_at.
+* completed_at.
+* resolution_notes.
+* created_at.
+* updated_at.
+
+## Maintenance types
+
+* Preventive maintenance.
+* Corrective maintenance.
+* Inspection.
+* Calibration.
+* Repair.
+* Safety verification.
+
+## Work order states
+
+* OPEN.
+* ASSIGNED.
+* IN_PROGRESS.
+* WAITING_FOR_PARTS.
+* COMPLETED.
+* CANCELLED.
+
+Define authorized transitions.
+
+## Maintenance features
+
+* Maintenance dashboard.
+* Upcoming inspections.
+* Overdue inspections.
+* Work order list.
+* Work order detail.
+* Assignment.
+* Fault reporting.
+* Repair records.
+* Evidence attachments.
+* Service history.
+* Maintenance calendar.
+* Operational restriction controls.
+
+If a required inspection expires, apply the configured resource restriction automatically.
+
+When repair work is completed, do not automatically return a resource to operational status if a separate safety inspection or clearance is required.
+
+Preserve the distinction between maintenance completion and authorization to resume use.
+
+# 17. HANDOVER AND CONDITION REPORTS
+
+Implement check-in and check-out with auditable condition records.
+
+## Before-use report
+
+Record:
+
+* Resource ID.
+* Booking ID.
+* User.
+* Timestamp.
+* Observed condition.
+* Accessories and components.
+* Visible damage.
+* Checklist results.
+* Notes.
+* Photographic evidence, where appropriate.
+
+## Return report
+
+Record:
+
+* Resource ID.
+* Booking ID.
+* User.
+* Timestamp.
+* Return condition.
+* Damage or faults.
+* Missing accessories.
+* Cleaning or shutdown checklist.
+* Notes.
+* Evidence.
+
+## Workflow
+
+1. Verify the booking and user.
+2. Verify that check-in is permitted.
+3. Confirm applicable safety conditions.
+4. Capture the initial condition report.
+5. Permit the authorized check-out transition.
+6. Record the return condition.
+7. Create a fault or incident if necessary.
+8. Apply a restriction if the recorded issue requires one.
+9. Complete the booking only when mandatory return requirements are satisfied.
+
+Users must not be able to silently rewrite previous condition reports.
+
+Corrections must be recorded as new, attributable events.
+
+# 18. INCIDENT AND FAULT MANAGEMENT
+
+Create a module for reporting faults, damage, and safety incidents.
+
+Fields:
+
+* id.
+* resource_id.
+* booking_id, optional.
+* reported_by.
+* incident_type.
+* severity.
+* description.
+* reported_at.
+* status.
+* assigned_to.
+* resolution.
+* resolved_at.
+
+Support incident types such as:
+
+* Equipment malfunction.
+* Physical damage.
+* Safety concern.
+* Missing accessory.
+* Unauthorized use.
+* Maintenance failure.
+* Near miss.
+* Other.
+
+Provide:
+
+* Incident reporting form.
+* Severity selection.
+* Evidence uploads.
+* Assignment.
+* Review queue.
+* Resolution workflow.
+* Incident history.
+* Related booking and resource links.
+
+Allow designated users to apply safety holds when authorized.
+
+Do not expose sensitive incident details to every authenticated user.
+
+# 19. DIGITAL AUDIT TRAIL
+
+Implement a durable audit mechanism.
+
+Record important events, including:
+
+* Resource creation.
+* Resource modification.
+* Owner or custodian changes.
+* Safety policy publication.
+* Training verification.
+* Authorization grant or revocation.
+* Booking request.
+* Eligibility evaluation.
+* Approval or rejection.
+* Check-in and check-out.
+* Condition report submission.
+* Maintenance completion.
+* Safety hold creation or removal.
+* Incident resolution.
+* Role assignment changes.
+
+## Audit fields
+
+* id.
+* actor_id, nullable only for explicitly identified system events.
+* event_type.
+* entity_type.
+* entity_id.
+* occurred_at.
+* correlation_id, where appropriate.
+* reason, where applicable.
+* policy_version, where applicable.
+* metadata containing an allowlisted set of non-sensitive event details.
+
+Do not store passwords, access tokens, or unnecessary personal data in audit metadata.
+
+## Audit requirements
+
+* Restrict ordinary users from updating or deleting audit events.
+* Record privileged changes.
+* Preserve previous values where appropriate and permitted.
+* Keep timestamps consistent.
+* Provide filtering by resource, actor, event type, and date.
+* Provide pagination.
+* Provide authorized exports.
+* Record failed privileged operations where the logging mechanism can reliably capture them.
+
+Prefer database triggers or trusted transactional operations for critical business events.
+
+Do not claim that the audit log is tamper-proof merely because the application uses PostgreSQL.
+
+# 20. ANALYTICS AND DASHBOARDS
+
+Build data-driven dashboards using actual database records.
+
+Do not use hardcoded chart values after the application is connected.
+
+## Student dashboard
+
+Display:
+
+* Upcoming bookings.
+* Booking requests awaiting a decision.
+* Recently viewed resources.
+* Training status.
+* Expiring qualifications.
+* Resource access limitations.
+* Recent notifications.
+
+## Lab manager dashboard
+
+Display:
+
+* Managed resources.
+* Resource operational status.
+* Today's bookings.
+* Pending approvals.
+* Overdue returns.
+* Upcoming inspections.
+* Open maintenance work orders.
+* Recent faults.
+
+## Safety officer dashboard
+
+Display:
+
+* Training compliance.
+* Expiring and expired qualifications.
+* Pending authorization reviews.
+* Active safety holds.
+* High-risk resources.
+* Open safety incidents.
+* Booking eligibility failures.
+
+## Administrator dashboard
+
+Display:
+
+* Total registered resources.
+* Operational resources.
+* Restricted resources.
+* Resources under maintenance.
+* Current and upcoming bookings.
+* Pending approvals.
+* Overdue inspections.
+* Open incidents.
+* Resource utilization.
+* Maintenance workload.
+
+## Suggested metrics
+
+### Resource utilization
+
+Define the measurement period and denominator.
+
+For example:
+
+Utilization rate =
+booked operating time / available operating time × 100.
+
+Exclude planned downtime consistently.
+
+### Training compliance
+
+Percentage of users with all mandatory training valid for the selected reporting scope.
+
+### Maintenance compliance
+
+Percentage of resources with all mandatory inspections current.
+
+### Booking rejection rate
+
+Rejected booking requests divided by all resolved booking requests in the reporting period.
+
+Display the numerator, denominator, period, and scope.
+
+### Handover completeness
+
+Percentage of completed bookings with all mandatory handover records.
+
+## Analytics implementation
+
+Use SQL aggregation, secure views, or carefully controlled database functions.
+
+Avoid loading every row into React and calculating institution-wide metrics in the browser.
+
+Protect aggregate reports from exposing restricted personal or incident information.
+
+# 21. NOTIFICATIONS
+
+Implement an in-app notification center.
+
+Notification types:
+
+* Booking requested.
+* Booking approved.
+* Booking rejected.
+* Booking cancelled.
+* Upcoming booking.
+* Training expiring.
+* Training expired.
+* Inspection approaching.
+* Inspection overdue.
+* Maintenance assignment.
+* Work order completed.
+* Resource restricted.
+* Fault reported.
+* Incident assigned.
+
+Each notification should contain:
+
+* Recipient.
+* Event type.
+* Title.
+* Message.
+* Related entity.
+* Created timestamp.
+* Read timestamp.
+* Delivery status, if external delivery is implemented.
+
+Provide:
+
+* Unread count.
+* Mark as read.
+* Mark all as read.
+* Notification history.
+* Navigation to the relevant record.
+
+Use scheduled processing for time-based reminders.
+
+Do not assume that notifications have been delivered merely because they were queued.
+
+# 22. FILE STORAGE
+
+Use Supabase Storage with private buckets for:
+
+* Resource manuals.
+* Safety procedures.
+* Training evidence.
+* Inspection evidence.
+* Maintenance photos.
+* Handover photos.
+* Incident attachments.
+
+Implement:
+
+* Appropriate upload limits.
+* File type validation.
+* Scoped storage policies.
+* Authorized download access.
+* Safe file naming.
+* File metadata.
+* Error handling.
+
+Do not make sensitive files publicly accessible.
+
+Do not rely on a hidden URL as the only security mechanism.
+
+Use authorized downloads or appropriately short-lived signed URLs where necessary.
+
+# 23. DATABASE ARCHITECTURE
+
+Create versioned SQL migrations.
+
+Use the following conceptual tables as the initial schema:
+
+IDENTITY
+
+* profiles
+* departments
+* user_roles
+
+RESOURCES
+
+* resource_categories
+* locations
+* resources
+* resource_documents
+* resource_status_history
+
+POLICIES
+
+* activities
+* activity_requirements
+* resource_rules
+* safety_policy_versions
+* safety_holds
+
+TRAINING
+
+* training_courses
+* user_training_records
+* resource_authorizations
+
+BOOKING
+
+* bookings
+* booking_approvals
+* booking_evaluations
+* handover_records
+
+MAINTENANCE
+
+* maintenance_schedules
+* maintenance_records
+* maintenance_work_orders
+
+INCIDENTS
+
+* incidents
+* incident_events
+
+AUDIT AND NOTIFICATIONS
+
+* audit_logs
+* notifications
+
+Adjust the schema where necessary, but document every significant deviation.
+
+Use foreign keys, unique constraints, check constraints, indexes, and appropriate delete behavior.
+
+Use UUID primary keys where appropriate.
+
+Use `timestamptz` for time-sensitive records.
+
+Use normalized relationships for entities that need independent querying and governance.
+
+Use JSONB only for appropriate variable attributes, structured decision details, or carefully validated configuration. Do not use one large JSONB object as a substitute for relational design.
+
+## Required integrity controls
+
+* Unique resource codes.
+* Valid resource status values.
+* Valid booking status values.
+* Valid start and end times.
+* Valid training state transitions.
+* No overlapping active reservations.
+* Valid authorization periods.
+* Referential integrity.
+* Safe handling of deleted users and retired assets.
+* Controlled policy publication.
+* Protected audit history.
+
+Do not use cascading deletes in ways that erase required booking, maintenance, incident, or audit history.
+
+Prefer deactivation, retirement, or carefully designed archival workflows for important entities.
+
+# 24. ROW-LEVEL SECURITY
+
+Enable RLS on every exposed application table.
+
+Define policies according to the actual access model.
+
+Do not create a generic policy that allows every authenticated user to modify every row.
+
+Use:
+
+* Ownership checks.
+* Assigned department or resource scope.
+* Role assignments stored in controlled tables.
+* Explicit approval permissions.
+* Read-only audit access.
+* Appropriate restrictions on private training and incident records.
+
+Ensure UPDATE policies have both appropriate `USING` and `WITH CHECK` conditions.
+
+Protect role assignment changes.
+
+Avoid relying on user-editable JWT metadata for authorization.
+
+Do not use `SECURITY DEFINER` functions casually to bypass RLS.
+
+If a privileged database function is genuinely required:
+
+* Restrict its execution privileges.
+* Validate the authenticated caller.
+* Validate the requested operation.
+* Use a fixed, safe search path.
+* Prevent unauthorized cross-user access.
+* Document why elevated privileges are necessary.
+* Test the function with adversarial inputs.
+
+Review database permissions separately from RLS policies. A correct row policy does not compensate for inappropriate table or function privileges.
+
+# 25. ERROR HANDLING
+
+Create a centralized error-handling approach.
+
+Support:
+
+* Authentication errors.
+* Permission errors.
+* Validation errors.
+* Resource not found.
+* Booking conflict.
+* Eligibility failure.
+* Training expiry.
+* Missing authorization.
+* Maintenance restriction.
+* Storage upload failure.
+* Network failure.
+* Unexpected server error.
+
+Provide understandable messages without exposing sensitive internal details.
+
+For example:
+
+Instead of:
+"Database error 23P01"
+
+Display:
+"This time slot has already been reserved. Choose another available time."
+
+Log the underlying technical details through an appropriate development or monitoring mechanism.
+
+Never hide failed database requests behind fake success states.
+
+# 26. DEVELOPMENT SEED DATA
+
+Provide optional development seed data that demonstrates the application's workflows.
+
+Create example resources such as:
+
+* Laser Cutter LC-001.
+* 3D Printer PR-001.
+* Oscilloscope OS-001.
+* Electronics Workbench EW-001.
+* Research Laboratory LAB-001.
+* Conference Room CR-001.
+
+Example users:
+
+* One student.
+* One lab manager.
+* One safety officer.
+* One maintenance technician.
+* One institution administrator.
+* One auditor.
+
+Example training:
+
+* Laboratory Induction.
+* Laser Safety.
+* Equipment Operation.
+* Electrical Safety.
+
+Example scenarios:
+
+* A fully qualified student requesting an eligible resource.
+* A student whose training has expired.
+* A resource under maintenance.
+* An eligible booking requiring approval.
+* An attempted overlapping reservation.
+* A returned resource with a reported fault.
+
+Seed non-sensitive business records only.
+
+Do not hardcode fake authentication credentials into the production application.
+
+Do not automatically create privileged production accounts through public seed endpoints.
+
+Provide a secure administrator bootstrap procedure for the real environment.
+
+# 27. TESTING REQUIREMENTS
+
+Write tests throughout implementation rather than at the end.
+
+## Unit tests
+
+Test:
+
+* Eligibility decision logic.
+* Training expiry.
+* Authorization validity.
+* Policy interpretation.
+* Booking state transitions.
+* Time validation.
+* Error formatting.
+
+## Component tests
+
+Test:
+
+* Booking forms.
+* Eligibility results.
+* Approval controls.
+* Resource status displays.
+* Role-dependent navigation.
+* Loading, empty, and error states.
+
+## Database tests
+
+Test:
+
+* RLS.
+* Foreign keys.
+* Constraints.
+* Booking overlap prevention.
+* Function permissions.
+* Audit event creation.
+* Safety hold enforcement.
+
+## End-to-end tests
+
+Scenario 1:
+Administrator creates a resource, configures requirements, and publishes the resource.
+
+Scenario 2:
+Student signs in and views the resource passport.
+
+Scenario 3:
+Student with valid training requests a booking.
+
+Scenario 4:
+The booking requires approval and remains pending until an authorized manager approves it.
+
+Scenario 5:
+Student with expired training cannot receive a confirmed booking.
+
+Scenario 6:
+Resource with an active safety hold cannot be booked.
+
+Scenario 7:
+Two simultaneous overlapping reservations cannot both succeed.
+
+Scenario 8:
+Student cannot read another student's private records.
+
+Scenario 9:
+Technician records a repair, but a required independent safety clearance still prevents use.
+
+Scenario 10:
+Authorized staff record the resource handover and return, and the history remains available.
+
+Scenario 11:
+Administrator changes a role, and the change is auditable.
+
+Scenario 12:
+A retired resource cannot receive new bookings.
+
+Scenario 13:
+Unauthorized direct API calls cannot bypass frontend restrictions.
+
+Scenario 14:
+Failed database operations display errors instead of success notifications.
+
+# 28. REQUIRED PROJECT STRUCTURE
+
+Use this structure as the default:
+
+resource-passport/
+public/
+src/
+app/
+components/
+ui/
+layout/
+feedback/
+features/
+auth/
+dashboard/
+resources/
+bookings/
+eligibility/
+training/
+authorizations/
+maintenance/
+handovers/
+incidents/
+analytics/
+audit/
+notifications/
+administration/
+hooks/
+lib/
+types/
+styles/
+main.tsx
+supabase/
+migrations/
+functions/
+tests/
+seed.sql
+e2e/
+.env.example
+.gitignore
+package.json
+tsconfig.json
+vite.config.ts
+README.md
+
+Organize files according to actual responsibilities.
+
+Do not create empty modules solely to match the structure.
+
+Do not place the entire application into a single App.tsx file.
+
+# 29. ENVIRONMENT CONFIGURATION
+
+Provide a `.env.example` containing only browser-safe configuration:
+
+VITE_SUPABASE_URL=
+VITE_SUPABASE_PUBLISHABLE_KEY=
+
+Use the current Supabase client conventions and document any version-specific configuration.
+
+Never include:
+
+* Service-role keys.
+* Secret API keys.
+* Database passwords.
+* SMTP passwords.
+* Private access tokens.
+
+Server-side secrets must be configured through the appropriate trusted environment or Supabase secret-management mechanism.
+
+Validate required environment variables at application startup and display a useful configuration error when missing.
+
+Do not silently switch to mock mode when Supabase is unavailable.
+
+# 30. REQUIRED DELIVERABLES
+
+Produce a working implementation, not just a technical description.
+
+Deliver:
+
+1. Complete Vite project configuration.
+2. React and TypeScript application shell.
+3. Responsive UI system.
+4. React Router configuration.
+5. Authentication implementation.
+6. Protected route handling.
+7. Role-aware navigation.
+8. Database schema.
+9. Versioned SQL migrations.
+10. Row-Level Security policies.
+11. Resource registry.
+12. Digital resource passport.
+13. QR code functionality.
+14. Training management.
+15. Resource authorization management.
+16. Activity and policy management.
+17. Safety eligibility engine.
+18. Booking calendar and reservation workflow.
+19. Approval queue.
+20. Maintenance management.
+21. Inspection records.
+22. Work orders.
+23. Handover records.
+24. Incident reporting.
+25. Audit history.
+26. In-app notifications.
+27. Analytics dashboards.
+28. Private document storage.
+29. Development seed data.
+30. Automated tests.
+31. `.env.example`.
+32. `.gitignore`.
+33. README.
+34. Supabase setup instructions.
+35. Local development instructions.
+36. Production deployment instructions.
+37. Test execution instructions.
+38. Initial administrator setup instructions.
+39. Security and operational limitations.
+40. A list of completed features and any remaining work.
+
+# 31. IMPLEMENTATION EXECUTION STRATEGY
+
+Work in sequential phases.
+
+Do not attempt to generate the entire production application as one enormous, unverified code dump.
+
+## PHASE 1: ARCHITECTURE AND FOUNDATION
+
+First:
+
+* Confirm the Vite-based architecture.
+* Define the project structure.
+* Initialize the frontend.
+* Configure dependencies.
+* Configure Supabase client.
+* Create the shared design system.
+* Set up routing.
+* Set up linting and tests.
+* Create environment documentation.
+
+Verify:
+
+* Development server starts.
+* TypeScript checks pass.
+* Production build succeeds.
+
+## PHASE 2: DATABASE AND AUTHENTICATION
+
+Implement:
+
+* Database migrations.
+* Profiles.
+* Departments.
+* Roles.
+* RLS policies.
+* Login.
+* Logout.
+* Session restoration.
+* Password recovery.
+* Role-aware route guards.
+
+Verify:
+
+* Authenticated access works.
+* Unauthorized database requests fail.
+* Privileged role assignment cannot be self-granted.
+
+## PHASE 3: RESOURCE PASSPORT
+
+Implement:
+
+* Categories.
+* Locations.
+* Resource CRUD.
+* Resource explorer.
+* Resource details.
+* Resource documents.
+* QR code generation.
+* Resource status history.
+
+Verify that changes persist across reloads and sessions.
+
+## PHASE 4: TRAINING AND AUTHORIZATION
+
+Implement:
+
+* Training catalog.
+* Training records.
+* Verification.
+* Expiry handling.
+* Resource-specific authorization.
+* Policy requirements.
+
+Verify eligibility against real database records.
+
+## PHASE 5: SAFETY AND BOOKINGS
+
+Implement:
+
+* Activities.
+* Safety rules.
+* Eligibility evaluation.
+* Booking requests.
+* Scheduling constraints.
+* Approval workflows.
+* Booking history.
+* Check-in/check-out.
+
+Verify:
+
+* Invalid requests are blocked.
+* Overlapping reservations cannot both succeed.
+* Approval cannot bypass non-overridable safety requirements.
+
+## PHASE 6: MAINTENANCE AND HANDOVER
+
+Implement:
+
+* Inspections.
+* Maintenance schedules.
+* Work orders.
+* Fault reports.
+* Safety holds.
+* Condition reports.
+* Incidents.
+* Audit events.
+
+Verify:
+
+* Safety holds immediately affect booking eligibility.
+* Maintenance clearance follows the correct authorization process.
+* Historical records remain intact.
+
+## PHASE 7: ANALYTICS AND NOTIFICATIONS
+
+Implement:
+
+* Dashboard summaries.
+* Utilization metrics.
+* Compliance metrics.
+* Maintenance metrics.
+* Notification center.
+* Scheduled reminders.
+
+Use real database data.
+
+## PHASE 8: SECURITY AND RELEASE
+
+Implement and verify:
+
+* Authorization tests.
+* Database integrity tests.
+* End-to-end tests.
+* Error handling.
+* Production build.
+* Deployment configuration.
+* Backup and recovery documentation.
+* Administrator bootstrap procedure.
+
+Perform a final security and functionality review.
+
+# 32. IMPLEMENTATION RULES
+
+Follow these rules throughout development.
+
+RULE 1:
+Do not substitute mock data for real application persistence.
+
+RULE 2:
+Do not create a fake authentication flow.
+
+RULE 3:
+Do not implement safety enforcement exclusively in the frontend.
+
+RULE 4:
+Do not expose service-role keys or secret credentials.
+
+RULE 5:
+Do not give every authenticated user administrative database permissions.
+
+RULE 6:
+Do not allow arbitrary client-side status changes.
+
+RULE 7:
+Do not allow overlapping confirmed bookings.
+
+RULE 8:
+Do not treat missing training or maintenance evidence as valid.
+
+RULE 9:
+Do not automatically remove safety holds when maintenance work is marked complete if separate clearance is required.
+
+RULE 10:
+Do not create fake analytics values once actual data is available.
+
+RULE 11:
+Do not suppress errors.
+
+RULE 12:
+Do not leave nonfunctional buttons or dead-end workflows.
+
+RULE 13:
+Do not generate an unnecessarily complex microservice architecture for a single-college application.
+
+RULE 14:
+Do not add blockchain, AI, or IoT integrations unless explicitly required by the project scope.
+
+RULE 15:
+Do not claim tests passed unless they were actually executed.
+
+RULE 16:
+Do not claim that authentication, database persistence, email delivery, or deployment works until it has been configured and verified.
+
+RULE 17:
+Use database migrations for reproducible schema changes.
+
+RULE 18:
+Use TypeScript types derived from the database schema where appropriate.
+
+RULE 19:
+Use transactions for critical multi-step operations.
+
+RULE 20:
+Maintain a clear implementation status and identify any blockers.
+
+# 33. COMPLETION CRITERIA
+
+The application is ready for an initial pilot only when all of the following are satisfied:
+
+* Users can authenticate through Supabase.
+* User roles are enforced by the backend.
+* Administrators can create and manage resources.
+* Each resource has a working digital passport.
+* Resource documents can be uploaded securely.
+* Training records persist in PostgreSQL.
+* Resource authorizations are enforced.
+* Activities and safety rules are configurable.
+* Eligibility evaluations use real persisted records.
+* Booking requests work end to end.
+* Overlapping reservations are prevented.
+* Required approvals are enforced.
+* Maintenance records and safety holds work.
+* Handover and return records persist.
+* Important changes appear in the audit history.
+* Notifications work for the supported event types.
+* Analytics use actual data.
+* RLS policies are tested.
+* Critical user workflows have automated tests.
+* The production build succeeds.
+* Setup and deployment instructions are complete.
+
+If a requirement remains incomplete, report it explicitly instead of marking the project complete.
+
+# 34. REQUIRED FINAL RESPONSE FROM YOU
+
+After implementing each phase, report:
+
+1. Phase completed.
+2. Files created.
+3. Files modified.
+4. Database changes.
+5. Functional features implemented.
+6. Security controls added.
+7. Tests executed.
+8. Actual test results.
+9. Build status.
+10. Setup steps required from the developer.
+11. Known limitations.
+12. Next implementation phase.
+
+At the end, provide:
+
+* The final project structure.
+* Database schema summary.
+* Environment configuration instructions.
+* Supabase configuration instructions.
+* Commands to run the application locally.
+* Commands to run tests.
+* Deployment instructions.
+* A completed-versus-incomplete feature matrix.
+
+# 35. START NOW
+
+Begin by inspecting the current project environment.
+
+If the repository already contains code, inspect it before modifying anything. Preserve working functionality and avoid destructive changes.
+
+If the repository is empty, scaffold the Vite + React + TypeScript application.
+
+Then implement Phase 1.
+
+Do not stop after producing a project proposal or a collection of design screenshots.
+
+Create the actual files and implement the application incrementally.
+
+After each phase, run the relevant checks, fix the failures, and report the verified result.
+
+If access to Supabase credentials or a configured project is unavailable, implement the local project structure and migrations, document the exact setup required, and continue with all work that can be verified without those credentials. Do not fabricate successful backend operations.
+
+**The ultimate objective is a secure, functional, maintainable Resource Passport application in which the digital passport, safety eligibility engine, booking workflow, maintenance lifecycle, and audit trail operate as one integrated software system.**
